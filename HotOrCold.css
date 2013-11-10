@@ -66,10 +66,10 @@ table {
 }
 
 .bigBox p {
-					/* Can not get jQuery to toggle.  Trying to ensure "p" inherits from .bigBox */
+	
 }
 
-input:first-child {
+#inputBox {
 	clear: both;
 	display: block;
  	font-size: 25px;
