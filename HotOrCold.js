@@ -1,77 +1,60 @@
-// Create a random varable
-// Setting to 100 for testing
-var random = 100;
-/*
-var random = getRandomInt(0, 999) {
-  return Math.floor(Math.random() * (999 - 0 + 1) + 0);
+
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1) + min);
 }
-alert(0,999);
-*/
+var target = getRandomInt(1,100);
 
+function checkAnswer(guess) {
+	console.log(guess);
+	if (guess == target) {
+		console.log("You win!");
+	}
+	else if (isNaN(guess)) {
+		console.log ("Please enter a number!");
+	}
+	else {
+		console.log("Try again!");
+	}
+}
 
-// Record / save the player's guess
-// Setting to 98 for testing
-
-var guess = document.getElementById("#inputBox");
-
-// Why not this?  Which might let me combine it with the .keydown and .click statements.
-// Or is this sort of thing the difference between good and bad code?
-
-// var guess = $( "#inputBox" ).keydown(function( event ) {
-//				var value = $( this ).val();
-//  			})  
-
-
-
-// Count the number of tries.
-var numberOfGuesses = 0;
-
-
-// Save the player's guess if player presses "Enter"
-$( "#inputBox" ).keydown(function( event ) {
-  if ( event.which == 13 ) {
-   event.preventDefault();
-  }
-  alert(document.getElementById("#inputBox").val());
-});
-
-
-// Save the player's guess if player clicks on "Submit"
-$( "#submitBox" ).click(function() {			
-  $( "#inputBox" ).keydown();
-});
-
-
-// Restarts the count if the player so chooses.  I think this implies that the player's guess
-// is the "local" variable and the random variable is the "top-level" variable???
-$("#startOver").click(function() {
-    $("#inputBox").data("count", 0);
-
-});
-
+//function formReset() {
+//	document.getElementByClassId("inputBox").reset()
+//}
 
 $(document).ready(function() {
-	for (var guess = 0; guess != random; guess++) {
-		if (guess == random) 
-			show("You win!");
-			break;
-		
-		if (guess < random) 
-			show("Try a larger number!");
-		
-		if (guess > random) 
-			show("Try a lower number");
-		
-		else 												// Still need a statement for when text is entered
-			show("Please enter a number between 0 and 999");
 
-/*															// Copied approach from jQuery API for .keydown
-															// Disabled for testing
+// Save the player's guess when player presses enter 
+	$("#inputBox").keydown(function(event) {
+  		if ( event.which == 13 ) {
+  			checkAnswer($("#inputBox").val());
+  			var toAdd = $("#inputBox").val();
+  			$("#displayOfGuess").append("<p>" + toAdd + "</p>");
+  			$(".bigBox")[0].reset();
+//  John, what the correct js / jQuery code for this: $("#inputBox").onkeypress=formReset()
+//    It didn't work when I tried it, so I went back to HTML
+//	John, why do I get this jQuery error message: event.returnValue is deprecated. Please use the standard event.preventDefault() instead.   	  	
+   	  	event.preventDefault();											
+   			}
+   		});	  	
 
+// Save the player's guess if player clicks on "Submit"
+	$( "#submitButton" ).click(function() {			
+   		checkAnswer($("#inputBox").val());
+   		var toAdd = $("#inputBox").val();
+  		$("#displayOfGuess").append("<p>" + toAdd + "</p>");
+  		$(".bigBox")[0].reset();  		
+	});
+});
+
+
+
+/*
 	numberOfGuesses++;
 	var msg = ("Number of guesses" + numberOfGuesses +".");
 	$.print(msg, "html");
 	$.print(event);
-*/	
+
 	}
 });
+
+*/

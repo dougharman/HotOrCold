@@ -57,10 +57,11 @@ table {
 }
 
 .bigBox {
+	display: inline-block;
 	width: 150px;
     height: 150px;
     border: 5px solid blue;
-	margin: 150px auto;
+	margin: 150px 0px 0px 100px;
 	background: white;
 	padding: 8px
 }
@@ -82,6 +83,46 @@ table {
 	padding: 8px
 }
 
+/*.winner_circle {
+	display: inline-block;
+	width: 250px;
+    height: 250px;
+    border: 5px solid blue;
+	margin: 150px 100px 0px 50px;
+	background: white;
+	padding: 8px
+}
+
+/*.safe {
+	clear: both;
+	display: block;
+ 	font-size: 25px;
+    text-align: center;
+    width: 50px;
+	height: 50px;
+	border: 2px solid blue;
+	margin: 10px auto;
+	background: red;
+	padding: 8px
+}
+
+
+*/
 .hide {
 	display: none;
 }
+
+/*
+
+img {
+	display: inline-block;
+	margin: 0px auto 20px auto;
+}
+
+h1 {
+	font-size: 24px;
+	font-weight: 500;
+	margin-bottom: 15px;
+} 
+
+
