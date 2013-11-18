@@ -49,13 +49,15 @@ table {
 }
 
 /* END OF RESET CODE */
+
 body {
-	position: relative;
+    position: relative;
+    background-color: green;
 }
 
 .center {
-	clear: both;
-	text-align: center;
+    clear: both;
+    text-align: center;
 }
 
 .banner ul li {
@@ -63,10 +65,20 @@ body {
 	display: inline-block;
 	width: 150px;
     height: 25px;
+    font-size: 24px;
     border: 5px transparent;
 	margin: 10px 10px;
-	background: white;
-	padding: 8px
+	background: transparent;
+	padding: 8px;
+}
+
+
+
+
+#bc {
+	position: absolute;
+	margin-left: 350px;
+	margin-top: -100px;
 }
 
 .section ul {
@@ -75,48 +87,52 @@ body {
 }
 
 .bigBox {
+	
 	width: 150px;
-    height: 150px;
-    border: 5px solid blue;
+    border: 5px solid black;
 	margin: 10px 10px;
-	background: white;
-	padding: 8px
-}
-
-.winner, .gold, .girls {
-	width: 150px;
-    height: 150px;
-    border: 5px transparent;
-	margin: 10px 10px;
-	background: white;
-	padding: 8px
-}
-
-#inputBox {
- 	font-size: 24px;
-    text-align: center;
-    width: 50px;
-	height: 50px;
-	border: 2px solid blue;
-	margin: 10px 10px;
-	background: red;
+	background: transparent;
 	padding: 8px;
 }
 
+.safe2, .gold2, .girl2 {
+	
+	width: 150px;
+    border: 5px solid black;
+	margin: 10px 10px;
+	background: transparent;
+	padding: 8px;
+}
+
+#inputBox {
+    font-size: 18px;
+    text-align: center;
+    width: 50px;
+    height: 50px;
+    border: 2px solid blue;
+    margin: 10px 10px;
+    background: white;
+    padding: 8px;
+}
+
 .hide {
-	display: none;
+        display: none;
 }
 
 h1 {
-	font-size: 48px;
-	font-family: Arial, sans-serif;
-	margin-bottom: 10px;
+        font-size: 48px;
+        font-family: 'Diplomata SC', cursive;
+        color: black;
+        margin-bottom: 10px;
 } 
 
 
 h2 {
-	font-size: 36px;
-	margin-bottom: 10px;
+        font-size: 36px;
+        font-family: Arial, sans-serif;
+        margin-bottom: 10px;
 } 
+
+
 
 

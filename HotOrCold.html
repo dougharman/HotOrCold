@@ -1,55 +1,68 @@
 <!DOCTYPE html>
 <head>
 	<link type="text/css" rel="stylesheet" href="HotOrCold.css">
+	<link href='http://fonts.googleapis.com/css?family=Diplomata+SC' rel='stylesheet' type='text/css'>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+	<script src="jquery.plug-in.js" type="text/javascript"></script>
 	<script language="javascript" type="text/javascript" src="HotOrCold.js"></script>
 	<title>Hot or Cold</title>
 </head>
 
 <body>
-  	<div class="center">
-  	  	<h1>OPEN THE SAFE and Get the Gold!</h1>
+  	<center class="center">
+  	  	<h1>OPEN THE SAFE<br/>Get the<span style="color: yellow"> Gold!</span></h1>
 		<h2>What's Your Guess</h2>
-	<div class="banner">
-  	  	<ul>
-    		<li></li>
-    		<li class="winner">You Opened the Safe</li>
-		   	<li class="gold hide">So Grab the Gold...</li> 
-    		<li class="girls hide">and Get the Girls!</li>
-    	</ul>
-    </div>	
-    <section class="section">	
-  	  	<ul class="bigBox">
-			<input id="inputBox" type="text">
-			<input id="submitButton" type="submit" name="Submit" value="Submit Your Guess">
-			<span  id="displayOfGuess"></span>
-			<input id="startOver" type="reset" name="startOver" value="I Want to Start Over">
-			<span  id="win" class="hide">You Win!</span>
-    	</ul>   	
-	 	<ul class="winner">
-     		<input id="inputBox" type="text">
-			<input id="submitButton" type="submit" name="Submit" value="Submit Your Guess">
-			<span  id="displayOfGuess"></span>
-			<input id="startOver" type="reset" name="startOver" value="I Want to Start Over">
-			<span  id="win" class="hide">You Win!</span>
-     	</ul>
-     	<ul class="gold hide">
-     		<input id="inputBox" type="text">
-			<input id="submitButton" type="submit" name="Submit" value="Submit Your Guess">
-			<span  id="displayOfGuess"></span>
-			<input id="startOver" type="reset" name="startOver" value="I Want to Start Over">
-			<span  id="win" class="hide">You Win!</span>
-     	</ul>
-     	<ul class="girls hide">
-     		<input id="inputBox" type="text">
-			<input id="submitButton" type="submit" name="Submit" value="Submit Your Guess">
-			<span  id="displayOfGuess"></span>
-			<input id="startOver" type="reset" name="startOver" value="I Want to Start Over">
-			<span  id="win" class="hide">You Win!</span>
-     	</ul>
-	</section>
-</body>
+		<img id="bc" src="images\logo-bc.png" alt="Basecamp"/>
+	</center>
 
+<!-- 
+
+John, I have an "extra" body html tag (below).  If I remove it, the page format is destroyed.
+In the HTML inspector, the first body tag has the word "style" after it, while the second one
+(below) doesn't.  I have no clue how I managed to add two and / or get the style attribute on one!
+Please explain.  Thanks!
+
+-->
+
+<body>
+    <div class="center">
+    <div class="banner hide">
+        <ul>
+        	<li>You Win!</li>
+			<li>You Opened the Safe</li>
+			<li>So Grab the Gold...</li>
+			<li>and Get the Girls</li>
+        </ul>
+    </div>        
+   
+    <section class="section">        
+        <ul class="bigBox">
+            <input id="inputBox" type="text" placeholder="GUESS">
+
+<!--
+
+John, tried to use the placeholder "Your Guess"; however, I couldn't get the text to wrap using
+either <br/> or \n 
+
+-->
+
+
+            <input id="submitButton" type="submit" name="Submit" value="Submit Your Guess">
+            <span  id="displayOfGuess"></span>
+            <input id="startOver" type="submit" name="startOver" value="I Want to Start Over">
+        </ul>           
+		<ul class="safe2">    		
+ 		    <img class="safe_closed" src="images\logo-hr.png" alt="Highrise"/>
+	     	<img class="safe_open hide" src="images\logo-cf.png" alt="Campfire"/>
+	   	</ul>
+        <ul class="gold2">	
+        	<img src="images\logo-hr.png" alt="Highrise"/>
+        </ul>
+        <ul class="girl2">
+            <img src="images\logo-hr.png" alt="Highrise"/>
+        </ul>
+    </section>
+</body>
 
 </html>
