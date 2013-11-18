@@ -5,27 +5,42 @@ function getRandomInt(min, max) {
 var target = getRandomInt(1, 100);
 console.log(target);
 
-//  John, code I found by Googling.  Original code is in "testCode" file. 
-function showBanner() {
-    var lis = $(".banner ul li");
-    $(".banner").remove("hide");
-     var i = 0;
-    (function() {
-         lis.eq(i++).fadeIn(200);
-      })();
-}
+//  John, code I found the showBanner code by Googling for "something" that would sequentially
+//  show my messages.  Original code is in "testCode" file. 
 
+/*function showBanner(guess) {
+    var lis = $(".banner ul li").hide();  
+    if (guess == target) { 
+        var i = 0;  
+        (function displayText() {  
+            lis.eq(i++).fadeIn(200, displayText);  
+        })()  
+   }  
+}
+*/
+
+var eT = 0;     
+function showBanner(guess) {
+    if (guess == target) {   
+    $(".banner").hide().each(function() {
+        $(this).delay(eT).fadeIn('slow');
+        eT += 600;
+        });
+    }
+}
 
 function checkAnswer(guess) {
     console.log(guess);
     if (guess == target) {
-        console.log("You win!");
+        $(".messageBox p:first").append("<h2>You Win!</h2>");
+        $(".messageBox p:nth-child(2)").empty();
+        $(".displayOfGuess").hide();
         $(".safe_closed, .safe_open").toggleClass("hide");
-        $(".banner").removeClass ("hide");
-
-        
+        $(".gc2, .gurl").removeClass("hide");
+        $(".gurl").attr("align","center");
+    
 // John, plugin code isn't working...
-        $(".win").blinker({
+/*        $(".messageBox").blinker({
             interval: 500,
             endcolor: '#fff',
             colors: [
@@ -33,17 +48,15 @@ function checkAnswer(guess) {
             '#222',
             '#333'
             ]
-            }); 
+            });    */
     } else if (guess < 1 || guess > 100) {
-        console.log("Please enter a number between 1 and 100!")
+        $(".messageBox p:nth-child(2)").append("<h2>Please enter a number between 1 and 100!</h2>");
     } else if (isNaN(guess)) {
-        console.log("Please enter a number!");
-    } else if (!this.value) {
-         console.log("Please enter a number!");   
+        $(".messageBox p:nth-child(2)").append("<h2>Please enter a number!</h2>");
     } else {
-        console.log("Try again!");
+        $(".messageBox p:nth-child(2)").append("<h2>Try again!</h2>");
     }
-}
+}        
 
 $(document).ready(function () {
 
@@ -51,8 +64,9 @@ $(document).ready(function () {
     $("#inputBox").keydown(function (event) {
         if (event.which == 13) {
             checkAnswer($("#inputBox").val());
+            showBanner($("#inputBox").val());
             var toAdd = $("#inputBox").val();
-            $("#displayOfGuess").append("<p>" + toAdd + "</p>");
+            $(".displayOfGuess").append("<p>" + toAdd + "</p>");
             event.preventDefault();
         }
 
@@ -68,11 +82,12 @@ $(document).ready(function () {
     // Save the player's guess if player clicks on "Submit
     $("#submitButton").click(function () {
         checkAnswer($("#inputBox").val());
+        showBanner($("#inputBox").val());
         var toAdd = $("#inputBox").val();
-        $("#displayOfGuess").append("<p>" + toAdd + "</p>");
+        $(".displayOfGuess").append("<p>" + toAdd + "</p>");
         setTimeout(function () {
         var toAdd = $("#inputBox").val();
-         }, 100);
+            }, 100);
         event.preventDefault();
     });
 
@@ -98,10 +113,12 @@ So, I'm doing the following - and forgetting about clearing the input box for th
 
     // Start over - with work-around.  I couldn't get it to toggle correctly all the time!
     $("#startOver").click(function () {
-        $("#displayOfGuess").empty();
+        $(".displayOfGuess").empty();
         $(".safe_open").hide();
         $(".safe_closed").fadeIn('fast');
-        $(".banner").hide();
+        $(".banner ").hide();
+        $(".messageBox").hide();
+        $(".gc2, .gurl").hide();
     }); 
 
 

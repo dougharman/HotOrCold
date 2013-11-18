@@ -13,7 +13,7 @@
   	<center class="center">
   	  	<h1>OPEN THE SAFE<br/>Get the<span style="color: yellow"> Gold!</span></h1>
 		<h2>What's Your Guess</h2>
-		<img id="bc" src="images\logo-bc.png" alt="Basecamp"/>
+		<img class="gc1" src="images\gold-coin.png" alt="gold coins"/>
 	</center>
 
 <!-- 
@@ -27,41 +27,45 @@ Please explain.  Thanks!
 
 <body>
     <div class="center">
+    
+    <div class="messageBox">
+        <p></p>
+        <p></p>
+    </div>
+    <div class="displayOfGuess">
+        <span></span>
+    </div>
     <div class="banner hide">
         <ul>
-        	<li>You Win!</li>
-			<li>You Opened the Safe</li>
-			<li>So Grab the Gold...</li>
-			<li>and Get the Girls</li>
+        	<li class="win"><span></span></li>
+			<li class="win">You Opened the Safe</li>
+			<li class="win">So Grab the Gold...</li>
+			<li class="win">and Get the Girls</li>
         </ul>
     </div>        
-   
+    
     <section class="section">        
-        <ul class="bigBox">
-            <input id="inputBox" type="text" placeholder="GUESS">
-
+        <div class="bigBox">
 <!--
 
 John, tried to use the placeholder "Your Guess"; however, I couldn't get the text to wrap using
 either <br/> or \n 
 
--->
-
-
+-->            
+            <input id="inputBox" type="text" placeholder="GUESS">
             <input id="submitButton" type="submit" name="Submit" value="Submit Your Guess">
-            <span  id="displayOfGuess"></span>
             <input id="startOver" type="submit" name="startOver" value="I Want to Start Over">
-        </ul>           
-		<ul class="safe2">    		
- 		    <img class="safe_closed" src="images\logo-hr.png" alt="Highrise"/>
-	     	<img class="safe_open hide" src="images\logo-cf.png" alt="Campfire"/>
-	   	</ul>
-        <ul class="gold2">	
-        	<img src="images\logo-hr.png" alt="Highrise"/>
-        </ul>
-        <ul class="girl2">
-            <img src="images\logo-hr.png" alt="Highrise"/>
-        </ul>
+        </div>           
+		<div class="safe">    		
+ 		    <img class="safe_closed" src="images\safe-C.png" alt="closed safe"/>
+	     	<img class="safe_open hide" src="images\safe-O.png" alt="open safe"/>
+	   	</div>
+        <div class="gold">
+            <img class="gc2 hide" src="images\gold-coin.png" alt="gold coin"/>
+        </div>
+        <div class="girl">
+            <img class="gurl hide" src="images\girls3.png" alt="avoid girls, save money"/>
+        </div>
     </section>
 </body>
 

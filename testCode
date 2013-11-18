@@ -1,4 +1,6 @@
-/* function XXXX() {  
+John - I named this function "showBanner"
+
+function XXXX() {  
    // Hide the elements initially  
    var lis = $("element").hide();  
           
@@ -17,5 +19,9 @@
    });    
 })();  
 
-
-
+John - I found a better one!
+var eT = 0;     
+    $('.everything').hide().each(function() {
+        $(this).delay(eT).fadeIn('slow');
+        eT += 200;
+    });

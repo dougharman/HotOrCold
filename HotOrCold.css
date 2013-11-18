@@ -63,43 +63,63 @@ body {
 .banner ul li {
 	clear: both;
 	display: inline-block;
-	width: 150px;
+	width: 175px;
     height: 25px;
     font-size: 24px;
+    color: yellow;
     border: 5px transparent;
 	margin: 10px 10px;
 	background: transparent;
 	padding: 8px;
 }
 
-
-
-
-#bc {
+.gc1 {
 	position: absolute;
 	margin-left: 350px;
 	margin-top: -100px;
+	border-radius: 50%;
+	height: 100px;
+	width: 100px;
 }
 
-.section ul {
+.gc2 {
+	border-radius: 50%;
+	height: 100px;
+	width: 100px;
+}
+
+
+.section div {
 	clear: both;
 	display: inline-block;
 }
 
 .bigBox {
-	
-	width: 150px;
+	width: 175px;
     border: 5px solid black;
+	margin-top: -50px;
+	margin-right: 10px;
+	margin-bottom: 10px;
+	margin-left: 10px;
+	background: transparent;
+	padding: 8px;
+}
+
+.safe, .girl {
+	width: 175px;
+    border: 5px transparent;
 	margin: 10px 10px;
 	background: transparent;
 	padding: 8px;
 }
 
-.safe2, .gold2, .girl2 {
-	
-	width: 150px;
-    border: 5px solid black;
-	margin: 10px 10px;
+.gold {
+	width: 175px;
+    border: 5px transparent;
+	margin-top: -50px;
+	margin-right: 10px;
+	margin-bottom: 10px;
+	margin-left: 10px;
 	background: transparent;
 	padding: 8px;
 }
@@ -107,7 +127,7 @@ body {
 #inputBox {
     font-size: 18px;
     text-align: center;
-    width: 50px;
+    width: 75px;
     height: 50px;
     border: 2px solid blue;
     margin: 10px 10px;
@@ -116,23 +136,43 @@ body {
 }
 
 .hide {
-        display: none;
+    display: none;
 }
 
 h1 {
-        font-size: 48px;
-        font-family: 'Diplomata SC', cursive;
-        color: black;
-        margin-bottom: 10px;
+   	font-size: 48px;
+    font-family: 'Diplomata SC', cursive;
+    color: black;
+    margin-bottom: 10px;
 } 
 
 
 h2 {
-        font-size: 36px;
-        font-family: Arial, sans-serif;
-        margin-bottom: 10px;
+    font-size: 36px;
+    font-family: Arial, sans-serif;
+    margin-bottom: 10px;
 } 
 
+.messageBox p:first-child {
+	font-size: 36px bold;
+	font-family: Arial, sans-serif;
+    margin-bottom: 10px;
+    text-align: center;
+    color: #FF0000;
+}
 
+.messageBox p:nth-child(2) {
+	font-size: 36px bold;
+	font-family: Arial, sans-serif;
+    margin-bottom: 10px;
+    text-align: center;
+    color: yellow;
+}
 
-
+.displayOfGuess p {
+	font-size: 36px bold;
+	font-family: Arial, sans-serif;
+    margin-bottom: 10px;
+    text-align: center;
+    color: yellow;
+}
