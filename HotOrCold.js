@@ -26,13 +26,13 @@ function showGuesses(guess) {
 }
 
 var count = p.length;
-alert(count);
 
 
 function checkAnswer(guess) {
     console.log(guess);
-    alert(count);
+    var count = p.length;
     if (guess == target) {
+        $(".messages").html($(".messageBox p:nth-child(2)").html("")); 
         $(".messageBox p:first").append("<h2>You Win!</h2>");
         $(".messageBox p:nth-child(2)").empty();
         $(".displayOfGuess").hide();
@@ -49,12 +49,15 @@ function checkAnswer(guess) {
         })
 
     } else if (guess < 1 || guess > 100) {
+        $(".messages").html($(".messageBox p:nth-child(2)").html("")); 
         $(".messageBox p:nth-child(2)").append("<h2>Please enter a number between 1 and 100!</h2>");
     } else if (isNaN(guess)) {
+        $(".messages").html($(".messageBox p:nth-child(2)").html("")); 
         $(".messageBox p:nth-child(2)").append("<h2>Please enter a number!</h2>");
-    } else if (count == 1) { 
+    } else if (count == 0) { 
+        $(".messages").html($(".messageBox p:nth-child(2)").html("")); 
         $(".messageBox p:nth-child(2)").append("<h2>Try again!</h2>");
-    } else if (guess < p[-1])&&(p[-1] < target) {
+    } /*else if (guess < p[-1])&&(p[-1] < target) {
         $(".messageBox p:nth-child(2)").append("<h2>You're Getting Colder</h2>"); 
     } else if (target < p[-1])&&(p[-1] < guess) {
         $(".messageBox p:nth-child(2)").append("<h2>You're Getting Colder</h2>");
@@ -62,9 +65,11 @@ function checkAnswer(guess) {
         $(".messageBox p:nth-child(2)").append("<h2>You're Getting Hotter<h2>");
     } else if (target < guess)&&(guess < p[-1]) {
         $(".messageBox p:nth-child(2)").append("<h2>You're Getting Hotter<h2>");
-    } else {
+    }*/else {
+        $(".messages").html($(".messageBox p:nth-child(2)").html("")); 
         $(".messageBox p:nth-child(2)").append("<h2>Try again!</h2>")
-    }       
+    }
+     $("#inputBox").val("");
 }        
 
 $(document).ready(function () {
@@ -75,7 +80,7 @@ $(document).ready(function () {
             checkAnswer($("#inputBox").val());
             showBanner($("#inputBox").val());
             showGuesses($("#inputBox").val());
-            var toAdd = $("#inputBox").val();
+            $(".messages").html($(".displayOfGuess").html("")); 
             $(".displayOfGuess").append("<p>" + p + "</p>");
             event.preventDefault();
         }
@@ -94,6 +99,7 @@ $(document).ready(function () {
         checkAnswer($("#inputBox").val());
         showBanner($("#inputBox").val());
         showGuesses($("#inputBox").val());
+        $(".messages").html($(".displayOfGuess").html("")); 
         $(".displayOfGuess").append("<p>" + p + "</p>");
         event.preventDefault();
     });
@@ -126,6 +132,7 @@ So, I'm doing the following - and forgetting about clearing the input box for th
         $(".banner ").hide();
         $(".messageBox").hide();
         $(".gc2, .gurl").hide();
+        $("#inputBox").val("");
     }); 
 
 });
