@@ -20,19 +20,20 @@ function showBanner(guess) {
     }
 }
 
-var p = [];                                // "p" as in previous guess
+// "p" as in previous guess
+var p = [];                                
 function showGuesses(guess) {
     p.unshift(guess); 
 }
 
 var count = p.length;
+var previousGuess = p[1];
 
 
 function checkAnswer(guess) {
     console.log(guess);
     var count = p.length;
     if (guess == target) {
-        $(".messages").html($(".messageBox p:nth-child(2)").html("")); 
         $(".messageBox p:first").append("<h2>You Win!</h2>");
         $(".messageBox p:nth-child(2)").empty();
         $(".displayOfGuess").hide();
@@ -49,15 +50,21 @@ function checkAnswer(guess) {
         })
 
     } else if (guess < 1 || guess > 100) {
-        $(".messages").html($(".messageBox p:nth-child(2)").html("")); 
+        $(".messageBox p:nth-child(2)").contents().remove();
+        $(".displayOfGuess").contents().remove();
         $(".messageBox p:nth-child(2)").append("<h2>Please enter a number between 1 and 100!</h2>");
     } else if (isNaN(guess)) {
-        $(".messages").html($(".messageBox p:nth-child(2)").html("")); 
+        $(".messageBox p:nth-child(2)").contents().remove();
+        $(".displayOfGuess").contents().remove();
         $(".messageBox p:nth-child(2)").append("<h2>Please enter a number!</h2>");
     } else if (count == 0) { 
-        $(".messages").html($(".messageBox p:nth-child(2)").html("")); 
+        $(".messageBox p:nth-child(2)").contents().remove();
+        $(".displayOfGuess").contents().remove();
         $(".messageBox p:nth-child(2)").append("<h2>Try again!</h2>");
-    } /*else if (guess < p[-1])&&(p[-1] < target) {
+    
+/* John, why doesn't this work - with the comparisons and && - something about syntax???
+
+    else if (guess < p[-1])&&(p[-1] < target) {
         $(".messageBox p:nth-child(2)").append("<h2>You're Getting Colder</h2>"); 
     } else if (target < p[-1])&&(p[-1] < guess) {
         $(".messageBox p:nth-child(2)").append("<h2>You're Getting Colder</h2>");
@@ -65,12 +72,40 @@ function checkAnswer(guess) {
         $(".messageBox p:nth-child(2)").append("<h2>You're Getting Hotter<h2>");
     } else if (target < guess)&&(guess < p[-1]) {
         $(".messageBox p:nth-child(2)").append("<h2>You're Getting Hotter<h2>");
-    }*/else {
-        $(".messages").html($(".messageBox p:nth-child(2)").html("")); 
-        $(".messageBox p:nth-child(2)").append("<h2>Try again!</h2>")
     }
-     $("#inputBox").val("");
+
+// wimped out and did what Mike Doyle did.  Could also expand first quess above to say high or low;
+ however, haven't yet.
+*/
+
+
+    } else if (Math.abs(guess - target) < Math.abs(previousGuess - target)) {
+        $(".messageBox p:nth-child(2)").contents().remove();
+        $(".displayOfGuess").contents().remove();
+        $(".messageBox p:nth-child(2)").append("<h2>You're Getting <span>HOTTER!</span></h2>");
+    } else {
+        $(".messageBox p:nth-child(2)").contents().remove();
+        $(".displayOfGuess").contents().remove();
+        $(".messageBox p:nth-child(2)").append("<h2>You're Getting <span>COLDER!</span></h2>");    
+    }
+
 }        
+
+function restart() {
+    function getRandomInt(min, max) {
+        return Math.floor(Math.random() * (max - min + 1) + min);
+        }
+    var target = getRandomInt(1, 100);
+    console.log(target);
+    $(".messageBox").hide();
+    $(".displayOfGuess").hide();
+    $(".banner ").hide();
+    $(".safe_open").hide();
+    $(".safe_closed").fadeIn('fast');
+    $(".gc2, .gurl").hide();
+    $("#inputBox").val("");
+}    
+
 
 $(document).ready(function () {
 
@@ -80,7 +115,7 @@ $(document).ready(function () {
             checkAnswer($("#inputBox").val());
             showBanner($("#inputBox").val());
             showGuesses($("#inputBox").val());
-            $(".messages").html($(".displayOfGuess").html("")); 
+            var toAdd = $("#inputBox").val();
             $(".displayOfGuess").append("<p>" + p + "</p>");
             event.preventDefault();
         }
@@ -99,40 +134,23 @@ $(document).ready(function () {
         checkAnswer($("#inputBox").val());
         showBanner($("#inputBox").val());
         showGuesses($("#inputBox").val());
-        $(".messages").html($(".displayOfGuess").html("")); 
-        $(".displayOfGuess").append("<p>" + p + "</p>");
+        var toAdd = $("#inputBox").val();
+       $(".displayOfGuess").append("<p>" + p + "</p>");
         event.preventDefault();
     });
 
-/* John - What's the proper way to reset a form?
+    // Start over
+    $("#startOver").keydown(function (event) {
+        if (event.which == 13) 
+        restart();
+    });
 
-This works; however, I lose the red background:
-
-    $("#inputBox").val(fadeTo('fast', 0));
-    $("inputBox").empty();   
-
+    $("#startOver").click(function (event){
+        restart();
+    });
 
 
-This doesn't work:
-	function formReset() {
-		document.getElementByClassId("inputBox").reset()
-	}
 
-Or this:
-	$("#inputBox").onkeypress=formReset()
 
-So, I'm doing the following - and forgetting about clearing the input box for the time being.
-*/
-
-    // Start over - with work-around.  I couldn't get it to toggle correctly all the time!
-    $("#startOver").click(function () {
-        $(".displayOfGuess").empty();
-        $(".safe_open").hide();
-        $(".safe_closed").fadeIn('fast');
-        $(".banner ").hide();
-        $(".messageBox").hide();
-        $(".gc2, .gurl").hide();
-        $("#inputBox").val("");
-    }); 
 
 });
