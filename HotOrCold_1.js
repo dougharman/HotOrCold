@@ -11,7 +11,7 @@ console.log(target);
 
 
 var eT = 0;     
-function showBanner(guess) {
+function showBanner(guess) { 
     if (guess == target) {   
     $(".banner").hide().each(function() {
         $(this).delay(eT).fadeIn('slow');
@@ -29,15 +29,16 @@ function showGuesses(guess) {
 var count = p.length;
 var previousGuess = p[1];
 
-
 function checkAnswer(guess) {
     console.log(guess);
     var count = p.length;
     if (guess == target) {
         $(".messageBox p:first").append("<h2>You Win!</h2>");
+        kaching_sound.play();
         $(".messageBox p:nth-child(2)").empty();
         $(".displayOfGuess").hide();
-        $(".safe_closed, .safe_open").toggleClass("hide");
+        $(".safe_closed, .safe_open").toggleClass("hide").delay(5000);
+        coins_sound.play();
         $(".gc2, .gurl").removeClass("hide");
         $(".gurl").attr("align","center");
     
@@ -106,18 +107,21 @@ function restart() {
     $("#inputBox").val("");
 }    
 
+var kaching_sound = new Audio("audio/cash-register.wav");
+var coins_sound = new Audio("audio/coins.wav");
+
 
 $(document).ready(function () {
 
     // Save the player's guess when player presses enter 
     $("#inputBox").keydown(function (event) {
         if (event.which == 13) {
+            event.preventDefault();
             checkAnswer($("#inputBox").val());
             showBanner($("#inputBox").val());
             showGuesses($("#inputBox").val());
             var toAdd = $("#inputBox").val();
             $(".displayOfGuess").append("<p>" + p + "</p>");
-            event.preventDefault();
         }
 
 /*	John, why do I get this jQuery error message: 
@@ -131,12 +135,12 @@ $(document).ready(function () {
 
     // Save the player's guess if player clicks on "Submit
     $("#submitButton").click(function () {
+        event.preventDefault();
         checkAnswer($("#inputBox").val());
         showBanner($("#inputBox").val());
         showGuesses($("#inputBox").val());
         var toAdd = $("#inputBox").val();
        $(".displayOfGuess").append("<p>" + p + "</p>");
-        event.preventDefault();
     });
 
     // Start over
