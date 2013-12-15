@@ -27,21 +27,26 @@ function showGuesses(guess) {
 }
 
 var count = p.length;
-var previousGuess = p[1];
+
 
 function checkAnswer(guess) {
     console.log(guess);
+    var previousGuess = p[0];
     var count = p.length;
-    if (guess == target) {
+    
+    if (previousGuess == target) {                                      // This was working; however, after I cleared the array in the restart 
+        restart();                                                      // function, it stopped working
+    }
+    else if (guess == target) {
         $(".messageBox p:first").append("<h2>You Win!</h2>");
         kaching_sound.play();
         $(".messageBox p:nth-child(2)").empty();
         $(".displayOfGuess").hide();
         $(".safe_closed, .safe_open").toggleClass("hide").delay(5000);
         coins_sound.play();
-        $(".gc2, .gurl").removeClass("hide");
-        $(".gurl").attr("align","center");
+        $(".gc2").removeClass("hide");
     
+        
         // John, plugin code for "modern blink"
       
         $(".messageBox p:first").modernBlink({
@@ -62,49 +67,47 @@ function checkAnswer(guess) {
         $(".messageBox p:nth-child(2)").contents().remove();
         $(".displayOfGuess").contents().remove();
         $(".messageBox p:nth-child(2)").append("<h2>Try again!</h2>");
-    
-/* John, why doesn't this work - with the comparisons and && - something about syntax???
-
-    else if (guess < p[-1])&&(p[-1] < target) {
+    } else if ((guess < previousGuess)&&(previousGuess < target)) {
+        var previousGuess = p[0];
+        $(".messageBox p:nth-child(2)").contents().remove();
+        $(".displayOfGuess").contents().remove();
         $(".messageBox p:nth-child(2)").append("<h2>You're Getting Colder</h2>"); 
-    } else if (target < p[-1])&&(p[-1] < guess) {
+    } else if ((target < previousGuess)&&(previousGuess < guess)) {
+        var previousGuess = p[0];
+        $(".messageBox p:nth-child(2)").contents().remove();
+        $(".displayOfGuess").contents().remove();
         $(".messageBox p:nth-child(2)").append("<h2>You're Getting Colder</h2>");
-    } else if (p[-1] < guess)&&(guess < target) {
-        $(".messageBox p:nth-child(2)").append("<h2>You're Getting Hotter<h2>");
-    } else if (target < guess)&&(guess < p[-1]) {
-        $(".messageBox p:nth-child(2)").append("<h2>You're Getting Hotter<h2>");
-    }
-
-// wimped out and did what Mike Doyle did.  Could also expand first quess above to say high or low;
- however, haven't yet.
-*/
-
-
-    } else if (Math.abs(guess - target) < Math.abs(previousGuess - target)) {
+    } else if ((previousGuess < guess)&&(guess < target)) {
+        var previousGuess = p[0];
         $(".messageBox p:nth-child(2)").contents().remove();
         $(".displayOfGuess").contents().remove();
-        $(".messageBox p:nth-child(2)").append("<h2>You're Getting <span>HOTTER!</span></h2>");
-    } else {
+        $(".messageBox p:nth-child(2)").append("<h2>You're Getting Hotter<h2>");
+    } else if ((target < guess)&&(guess < previousGuess)) {
+        var previousGuess = p[0];
         $(".messageBox p:nth-child(2)").contents().remove();
         $(".displayOfGuess").contents().remove();
-        $(".messageBox p:nth-child(2)").append("<h2>You're Getting <span>COLDER!</span></h2>");    
+        $(".messageBox p:nth-child(2)").append("<h2>You're Getting Hotter<h2>");
     }
 
 }        
 
-function restart() {
-    function getRandomInt(min, max) {
-        return Math.floor(Math.random() * (max - min + 1) + min);
-        }
-    var target = getRandomInt(1, 100);
-    console.log(target);
-    $(".messageBox").hide();
-    $(".displayOfGuess").hide();
-    $(".banner ").hide();
-    $(".safe_open").hide();
-    $(".safe_closed").fadeIn('fast');
-    $(".gc2, .gurl").hide();
-    $("#inputBox").val("");
+function restart() {                                            // Restart function doesn't work when the game is played multiple times
+    target = getRandomInt(1, 100);                              // I do not understand why
+    console.log(target);                                        // I'm returning everything to their original "state"
+    $(".messageBox p:first h2").remove();
+    $(".messageBox p:nth-child(2) h2").remove();
+    $(".displayOfGuess p").remove();
+    p.length = 0;
+    $(".banner ").fadeOut("fast");
+    var isVisible = $(".safe_open").is(":visible")              // This is designed to test for the safe's "state": open or closed
+    var isHidden = $(".safe_open").is(":hidden")                // then, if open, toggle to the closed picture as part of the restart
+    if ("isVisible") {                                          // Why can't I just use the "toggleClass" handler - 
+        $(".safe_closed, .safe_open").toggleClass("hide");      // because if a player re-enters the winning number (twice), then the
+    } else {                                                    // picture is in the wrong state when the game restarts
+        return "isHidden";                                      // I do not know how to test this - principally because the entire restart function
+    }                                                           // isn't working
+    $(".gc2").addClass("hide");                             
+    $("#inputBox").val("");                                     // I also added the if (previousGuess == target) to the checkAnswer function
 }    
 
 var kaching_sound = new Audio("audio/cash-register.wav");
@@ -113,37 +116,28 @@ var coins_sound = new Audio("audio/coins.wav");
 
 $(document).ready(function () {
 
-    // Save the player's guess when player presses enter 
+// Save the player's guess when player presses enter 
     $("#inputBox").keydown(function (event) {
         if (event.which == 13) {
             event.preventDefault();
             checkAnswer($("#inputBox").val());
             showBanner($("#inputBox").val());
             showGuesses($("#inputBox").val());
-            var toAdd = $("#inputBox").val();
             $(".displayOfGuess").append("<p>" + p + "</p>");
         }
 
-/*	John, why do I get this jQuery error message: 
-        
-        event.returnValue is deprecated. Please use the standard event.preventDefault() instead 
-        jquery.js:5374 	  	   	  												
-    
-*/
-
     });
 
-    // Save the player's guess if player clicks on "Submit
+// Save the player's guess if player clicks on "Submit
     $("#submitButton").click(function () {
         event.preventDefault();
         checkAnswer($("#inputBox").val());
         showBanner($("#inputBox").val());
         showGuesses($("#inputBox").val());
-        var toAdd = $("#inputBox").val();
-       $(".displayOfGuess").append("<p>" + p + "</p>");
+        $(".displayOfGuess").append("<p>" + p + "</p>");
     });
 
-    // Start over
+// Start over
     $("#startOver").keydown(function (event) {
         if (event.which == 13) 
         restart();

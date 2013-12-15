@@ -13,20 +13,10 @@
 <body>
   	<center class="center">
   	  	<h1 style="text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white">OPEN THE SAFE<br/>Get the<span style="color: yellow; text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black"> Gold!</span></h1>
-		<h2>What's Your Guess: Pick a Number</h2>
+		<h2 style="text-shadow: -1px 0 blue, 0 1px blue, 1px 0 blue, 0 -1px blue">What's Your Guess: Pick a Number</h2>
 		<img class="gc1" src="images\gold-coin.png" alt="gold coins"/>
 	</center>
 
-<!-- 
-
-John, I have an "extra" body html tag (below).  If I remove it, the page format is destroyed.
-In the HTML inspector, the first body tag has the word "style" after it, while the second one
-(below) doesn't.  I have no clue how I managed to add two and / or get the style attribute on one!
-Please explain.  Thanks!
-
--->
-
-<body>
     <div class="center">
     
     
@@ -43,7 +33,6 @@ Please explain.  Thanks!
         	<li class="win"><span></span></li>
 			<li class="win">You Opened the Safe</li>
 			<li class="win">So Grab the Gold...</li>
-			<li class="win">and Get the Girls</li>
         </ul>
     </div>        
     
@@ -55,7 +44,7 @@ John, tried to use the placeholder "Your Guess"; however, I couldn't get the tex
 either <br/> or \n 
 
 -->            
-            <input id="inputBox" type="text" placeholder="GUESS">
+            <input id="inputBox" type="text" placeholder="GUESS" style="text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white">
             <input id="submitButton" type="submit" name="Submit" value="Submit Your Guess">
             <input id="startOver" type="submit" name="startOver" value="I Want to Start Over">
         </div>           
@@ -65,9 +54,6 @@ either <br/> or \n
 	   	</div>
         <div class="gold">
             <img class="gc2 hide" src="images\gold-coin.png" alt="gold coin"/>
-        </div>
-        <div class="girl">
-            <img class="gurl hide" src="images\girls2.png" alt="avoid girls, save money"/>
         </div>
     </section>
 </body>
