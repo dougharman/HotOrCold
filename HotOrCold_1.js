@@ -28,7 +28,6 @@ function showGuesses(guess) {
 
 var count = p.length;
 
-
 function checkAnswer(guess) {
     console.log(guess);
     var previousGuess = p[0];
@@ -67,38 +66,52 @@ function checkAnswer(guess) {
         $(".messageBox p:nth-child(2)").contents().remove();
         $(".displayOfGuess").contents().remove();
         $(".messageBox p:nth-child(2)").append("<h2>Try again!</h2>");
-    } else if ((guess < previousGuess)&&(previousGuess < target)) {
-        var previousGuess = p[0];
-        $(".messageBox p:nth-child(2)").contents().remove();
-        $(".displayOfGuess").contents().remove();
-        $(".messageBox p:nth-child(2)").append("<h2>You're Getting Colder</h2>"); 
-    } else if ((target < previousGuess)&&(previousGuess < guess)) {
-        var previousGuess = p[0];
-        $(".messageBox p:nth-child(2)").contents().remove();
-        $(".displayOfGuess").contents().remove();
-        $(".messageBox p:nth-child(2)").append("<h2>You're Getting Colder</h2>");
-    } else if ((previousGuess < guess)&&(guess < target)) {
-        var previousGuess = p[0];
-        $(".messageBox p:nth-child(2)").contents().remove();
-        $(".displayOfGuess").contents().remove();
-        $(".messageBox p:nth-child(2)").append("<h2>You're Getting Hotter<h2>");
-    } else if ((target < guess)&&(guess < previousGuess)) {
-        var previousGuess = p[0];
-        $(".messageBox p:nth-child(2)").contents().remove();
-        $(".displayOfGuess").contents().remove();
-        $(".messageBox p:nth-child(2)").append("<h2>You're Getting Hotter<h2>");
+    } else if ((guess - target) < 0 ) {
+        if ((guess < previousGuess)&&(previousGuess < target)) {
+            var previousGuess = p[0];
+            $(".messageBox p:nth-child(2)").contents().remove();
+            $(".displayOfGuess").contents().remove();
+            $(".messageBox p:nth-child(2)").append("<h2>You're Getting Colder</h2>"); 
+        } else if ((previousGuess < guess)&&(guess < target)) {
+            var previousGuess = p[0];
+            $(".messageBox p:nth-child(2)").contents().remove();
+            $(".displayOfGuess").contents().remove();
+            $(".messageBox p:nth-child(2)").append("<h2>You're Getting Hotter<h2>");
+        } else if ((previousGuess - target) >= 1 ) {
+            var previousGuess = p[0];
+            $(".messageBox p:nth-child(2)").contents().remove();
+            $(".displayOfGuess").contents().remove();
+            $(".messageBox p:nth-child(2)").append("<h2>You flipped!  You're now Below the Answer<h2>");   
+        }
+    } else if ((guess - target) >= 1 ) { 
+        if ((target < previousGuess)&&(previousGuess < guess)) {
+            var previousGuess = p[0];
+            $(".messageBox p:nth-child(2)").contents().remove();
+            $(".displayOfGuess").contents().remove();
+            $(".messageBox p:nth-child(2)").append("<h2>You're Getting Colder</h2>");  
+        } else if ((target < guess)&&(guess < previousGuess)) {
+            var previousGuess = p[0];
+            $(".messageBox p:nth-child(2)").contents().remove();
+            $(".displayOfGuess").contents().remove();
+            $(".messageBox p:nth-child(2)").append("<h2>You're Getting Hotter<h2>");
+        } else if ((previousGuess - target) < 0 ) {
+         var previousGuess = p[0];
+            $(".messageBox p:nth-child(2)").contents().remove();
+            $(".displayOfGuess").contents().remove();
+            $(".messageBox p:nth-child(2)").append("<h2>You flipped!  You're now Above the Answer<h2>");   
+        } 
     }
-
 }        
 
 function restart() {                                            // Restart function doesn't work when the game is played multiple times
     target = getRandomInt(1, 100);                              // I do not understand why
     console.log(target);                                        // I'm returning everything to their original "state"
     $(".messageBox p:first h2").remove();
-    $(".messageBox p:nth-child(2) h2").remove();
+    $(".messageBox p:nth-child(2)").contents.remove();
     $(".displayOfGuess p").remove();
     p.length = 0;
     $(".banner ").fadeOut("fast");
+
     var isVisible = $(".safe_open").is(":visible")              // This is designed to test for the safe's "state": open or closed
     var isHidden = $(".safe_open").is(":hidden")                // then, if open, toggle to the closed picture as part of the restart
     if ("isVisible") {                                          // Why can't I just use the "toggleClass" handler - 
