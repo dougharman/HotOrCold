@@ -5,21 +5,6 @@ function getRandomInt(min, max) {
 var target = getRandomInt(1, 100);
 console.log(target);
 
-//  John, code I found the original showBanner code by Googling for "something" that would sequentially
-//  show my messages; however, I couldn't get it to work.  (Original code is in "testCode" file.)
-//  so I found the following which does - sorta, i.e., it still happens too fast
-
-
-var eT = 0;     
-function showBanner(guess) { 
-    if (guess == target) {   
-    $(".banner").hide().each(function() {
-        $(this).delay(eT).fadeIn('slow');
-        eT += 600;
-        });
-    }
-}
-
 // "p" as in previous guess
 var p = [];                                
 function showGuesses(guess) {
@@ -33,20 +18,26 @@ function checkAnswer(guess) {
     var previousGuess = p[0];
     var count = p.length;
     
-    if (previousGuess == target) {                                      // This was working; however, after I cleared the array in the restart 
-        restart();                                                      // function, it stopped working
+    if (previousGuess == target) {                                      
+        restart();                                                     
     }
     else if (guess == target) {
+        
+        $(".messageBox p:nth-child(2)").addClass("hide");
+       
+        $(".displayOfGuess").addClass("hide");
         $(".messageBox p:first").append("<h2>You Win!</h2>");
         kaching_sound.play();
-        $(".messageBox p:nth-child(2)").empty();
-        $(".displayOfGuess").hide();
+
         $(".safe_closed, .safe_open").toggleClass("hide").delay(5000);
         coins_sound.play();
+        $(".banner, ._1").fadeIn("fast");
+        $("._2").fadeIn("700");
+        $("._3").fadeIn("900");
         $(".gc2").removeClass("hide");
     
         
-        // John, plugin code for "modern blink"
+// Plugin code for "modern blink"
       
         $(".messageBox p:first").modernBlink({
             duration: 1000,
@@ -103,24 +94,28 @@ function checkAnswer(guess) {
     }
 }        
 
-function restart() {                                            // Restart function doesn't work when the game is played multiple times
-    target = getRandomInt(1, 100);                              // I do not understand why
-    console.log(target);                                        // I'm returning everything to their original "state"
+// Restart function doesn't work when the game is played multiple times
+function restart() {                                           
+    target = getRandomInt(1, 100);                              
+    console.log(target);                                        
     $(".messageBox p:first h2").remove();
-    $(".messageBox p:nth-child(2)").contents.remove();
-    $(".displayOfGuess p").remove();
+    $(".messageBox p:nth-child(2)").removeClass("hide");
+    $(".displayOfGuess p").removeClass("hide");
     p.length = 0;
-    $(".banner ").fadeOut("fast");
+    $(".banner, ._1, ._2, ._3").fadeOut("fast");
+    $(".messageBox p:nth-child(2)").contents().remove();
+    $(".displayOfGuess").contents().remove();
 
-    var isVisible = $(".safe_open").is(":visible")              // This is designed to test for the safe's "state": open or closed
-    var isHidden = $(".safe_open").is(":hidden")                // then, if open, toggle to the closed picture as part of the restart
-    if ("isVisible") {                                          // Why can't I just use the "toggleClass" handler - 
-        $(".safe_closed, .safe_open").toggleClass("hide");      // because if a player re-enters the winning number (twice), then the
-    } else {                                                    // picture is in the wrong state when the game restarts
-        return "isHidden";                                      // I do not know how to test this - principally because the entire restart function
-    }                                                           // isn't working
-    $(".gc2").addClass("hide");                             
-    $("#inputBox").val("");                                     // I also added the if (previousGuess == target) to the checkAnswer function
+// This is designed to test for the safe's "state": open or closed.  It's not working!!!
+    var isVisible = $(".safe_open").is(":visible")              
+    var isHidden = $(".safe_open").is(":hidden")                
+    if ("isVisible") {                                          
+        $(".safe_closed, .safe_open").toggleClass("hide");      
+    } else {                                                    
+        return "isHidden";                                     
+    }                                                          
+    $(".gc2").addClass("hide");
+    $("#inputBox").val("");                                     
 }    
 
 var kaching_sound = new Audio("audio/cash-register.wav");
@@ -129,23 +124,21 @@ var coins_sound = new Audio("audio/coins.wav");
 
 $(document).ready(function () {
 
-// Save the player's guess when player presses enter 
+// Save the player's guess when player presses "enter" 
     $("#inputBox").keydown(function (event) {
         if (event.which == 13) {
             event.preventDefault();
             checkAnswer($("#inputBox").val());
-            showBanner($("#inputBox").val());
             showGuesses($("#inputBox").val());
             $(".displayOfGuess").append("<p>" + p + "</p>");
         }
 
     });
 
-// Save the player's guess if player clicks on "Submit
+// Save the player's guess if player clicks on "Submit"
     $("#submitButton").click(function () {
         event.preventDefault();
         checkAnswer($("#inputBox").val());
-        showBanner($("#inputBox").val());
         showGuesses($("#inputBox").val());
         $(".displayOfGuess").append("<p>" + p + "</p>");
     });
@@ -159,9 +152,5 @@ $(document).ready(function () {
     $("#startOver").click(function (event){
         restart();
     });
-
-
-
-
 
 });
